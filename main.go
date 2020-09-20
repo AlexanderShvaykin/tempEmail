@@ -3,6 +3,7 @@ package main
 import (
 	"fmt"
 	"math/rand"
+	"tempEmail/internal/secmail"
 	"time"
 )
 
@@ -15,15 +16,25 @@ var (
 )
 
 func main() {
-	fmt.Println(GenerateEmail())
-	fmt.Println(GenerateEmail())
-	fmt.Println(GenerateEmail())
+	userData := GenerateEmail()
+	mails := secmail.GetMails(userData.Login, userData.Domain)
+	fmt.Println(mails)
 }
 
-func GenerateEmail() string {
+type Email struct {
+	Login  string
+	Domain string
+}
+
+func (e Email) Email() string {
+	return fmt.Sprintf("%s@%s", e.Login, e.Domain)
+}
+
+func GenerateEmail() Email {
 	userName := RandomString(nameLen)
 	tld := tails[rand.Intn(len(tails))]
-	return fmt.Sprintf("%s@1secmail.%s", userName, tld)
+	domain := fmt.Sprintf("1secmail.%s", tld)
+	return Email{Login: userName, Domain: domain}
 }
 
 func RandomString(n int) string {
