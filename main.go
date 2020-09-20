@@ -17,8 +17,13 @@ var (
 
 func main() {
 	userData := GenerateEmail()
-	mails := secmail.GetMails(userData.Login, userData.Domain)
-	fmt.Println(mails)
+	fmt.Println(userData.Email())
+
+	for {
+		mails := secmail.GetMails(userData.Login, userData.Domain)
+		fmt.Println(mails)
+		time.Sleep(5 * time.Second)
+	}
 }
 
 type Email struct {
