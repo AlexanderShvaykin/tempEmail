@@ -22,7 +22,7 @@ func main() {
 
 func GenerateEmail() string {
 	userName := RandomString(nameLen)
-	tld := tails[rand.Intn(3)]
+	tld := tails[rand.Intn(len(tails))]
 	return fmt.Sprintf("%s@1secmail.%s", userName, tld)
 }
 
