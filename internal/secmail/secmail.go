@@ -3,14 +3,12 @@ package secmail
 import (
 	"encoding/json"
 	"fmt"
-	"io/ioutil"
-	"net/http"
-	"net/url"
+	"tempEmail/pkg/http"
 )
 
 const baseUrl = "https://1secmail.com/api/v1/"
 
-func GetMails(login string, domain string) []Mail {
+func GetMails(login string, domain string, client http.Methods) []Mail {
 	var mails []Mail
 
 	params := map[string]string{
@@ -18,17 +16,11 @@ func GetMails(login string, domain string) []Mail {
 		"login":  login,
 		"domain": domain,
 	}
-	endpoint := buildURL(baseUrl, params)
-	resp, err := http.Get(endpoint)
+	body, err := client.Get(baseUrl, params)
 	if err != nil {
 		panic(err)
 	}
 
-	defer resp.Body.Close()
-	body, err := ioutil.ReadAll(resp.Body)
-	if err != nil {
-		print(err)
-	}
 	if err := json.Unmarshal(body, &mails); err != nil {
 		fmt.Println(err)
 	}
@@ -36,13 +28,6 @@ func GetMails(login string, domain string) []Mail {
 	return mails
 }
 
-func buildURL(base string, p map[string]string) string {
-	base += "?"
-	for key, value := range p {
-		base += key
-		base += "="
-		base += url.QueryEscape(value)
-		base += "&"
-	}
-	return base[0:(len(base) - 1)]
+type Mail struct {
+	ID int64
 }
