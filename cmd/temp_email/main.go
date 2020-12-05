@@ -3,6 +3,8 @@ package main
 import (
 	"fmt"
 	"math/rand"
+	"os"
+	"tempEmail/pkg/cmd/root"
 	"tempEmail/pkg/until"
 )
 
@@ -17,6 +19,11 @@ var (
 func main() {
 	userData := GenerateEmail()
 	fmt.Println(userData.Email())
+	cmd := root.NewCmdRoot()
+	if err := cmd.Execute(); err != nil {
+		_, _ = fmt.Fprintln(os.Stderr, err)
+		os.Exit(1)
+	}
 }
 
 type Email struct {
