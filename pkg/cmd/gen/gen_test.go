@@ -41,7 +41,7 @@ func TestGenCmd(t *testing.T) {
 		t.Run(tt.name, func(t *testing.T) {
 			output, err := runCommand()
 			if err != nil {
-				t.Fatalf("error running command `pr close`: %v", err)
+				t.Fatalf("error running command `generate`: %v", err)
 			}
 
 			r := regexp.MustCompile(`.{9}@1secmail\.(com|net|org)$`)
