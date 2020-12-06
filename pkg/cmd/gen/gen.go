@@ -3,7 +3,6 @@ package gen
 import (
 	"fmt"
 	"github.com/spf13/cobra"
-	"os"
 	"strings"
 	"tempEmail/pkg/cmdutil"
 	"tempEmail/pkg/util"
@@ -12,7 +11,6 @@ import (
 
 const (
 	nameLen = 10
-	EnvName = "TEMP_EMAIL_1SEC"
 )
 
 func NewCmdGen(f *cmdutil.Factory) *cobra.Command {
@@ -22,11 +20,7 @@ func NewCmdGen(f *cmdutil.Factory) *cobra.Command {
 		Long:  "Generate new email or reset old email and save it to ENV",
 		Run: func(c *cobra.Command, args []string) {
 			email := GenerateEmail().Email()
-			err := os.Setenv(EnvName, email)
-			if err != nil {
-				panic(err)
-			}
-			_, err = fmt.Fprintln(f.Out, email)
+			_, err := fmt.Fprintln(f.Out, email)
 			if err != nil {
 				panic(err)
 			}

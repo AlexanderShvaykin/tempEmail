@@ -3,7 +3,6 @@ package gen
 import (
 	"bytes"
 	"io/ioutil"
-	"os"
 	"reflect"
 	"regexp"
 	"strings"
@@ -48,10 +47,6 @@ func TestGenCmd(t *testing.T) {
 			email := strings.TrimSuffix(output.String(), "\n")
 			if !r.MatchString(email) {
 				t.Fatalf("output did not match regexp /%s/\n> output\n%q\n", r, email)
-			}
-			env := os.Getenv(EnvName)
-			if env != email {
-				t.Fatalf("Email did not save to env, current value %s, need %q", env, email)
 			}
 		})
 	}
