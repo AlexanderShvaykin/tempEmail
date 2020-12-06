@@ -29,5 +29,8 @@ func GetMails(login string, domain string, client http.Methods) []Mail {
 }
 
 type Mail struct {
-	ID int64
+	ID      int64
+	From    string
+	Subject string
+	Date    string
 }
