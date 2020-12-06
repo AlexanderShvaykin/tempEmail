@@ -11,3 +11,10 @@ func Fprintf(w io.Writer, format string, a ...interface{}) {
 		panic(err)
 	}
 }
+
+func Fprint(w io.Writer, a ...interface{}) {
+	_, err := fmt.Fprint(w, a...)
+	if err != nil {
+		panic(err)
+	}
+}
