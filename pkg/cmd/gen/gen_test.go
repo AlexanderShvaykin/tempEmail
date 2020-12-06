@@ -4,6 +4,7 @@ import (
 	"bytes"
 	"io/ioutil"
 	"os"
+	"reflect"
 	"regexp"
 	"strings"
 	"tempEmail/pkg/cmdutil"
@@ -48,9 +49,33 @@ func TestGenCmd(t *testing.T) {
 			if !r.MatchString(email) {
 				t.Fatalf("output did not match regexp /%s/\n> output\n%q\n", r, email)
 			}
-			env := os.Getenv("TEMP_EMAIL_1SEC")
+			env := os.Getenv(EnvName)
 			if env != email {
 				t.Fatalf("Email did not save to env, current value %s, need %q", env, email)
+			}
+		})
+	}
+}
+
+func TestNew(t *testing.T) {
+	type args struct {
+		address string
+	}
+	tests := []struct {
+		name string
+		args args
+		want Email
+	}{
+		{
+			name: "Splint address and returns new Email struct",
+			args: args{address: "foo@baz.org"},
+			want: Email{Login: "foo", Domain: "baz.org"},
+		},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			if got := New(tt.args.address); !reflect.DeepEqual(got, tt.want) {
+				t.Errorf("New() = %v, want %v", got, tt.want)
 			}
 		})
 	}
