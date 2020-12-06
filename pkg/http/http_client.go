@@ -14,6 +14,7 @@ type Client struct {
 }
 
 func (c Client) Get(url string, params map[string]string) ([]byte, error) {
+	url = url + "?"
 	if len(params) != 0 {
 		for key, value := range params {
 			url += key
