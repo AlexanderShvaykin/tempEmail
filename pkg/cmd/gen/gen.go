@@ -3,6 +3,7 @@ package gen
 import (
 	"fmt"
 	"github.com/spf13/cobra"
+	"os"
 	"tempEmail/pkg/cmdutil"
 	"tempEmail/pkg/util"
 	"time"
@@ -21,8 +22,12 @@ func NewCmdGen(f *cmdutil.Factory) *cobra.Command {
 			userName := util.RandomString(nameLen, time.Now().UnixNano())
 			tld := util.RandomTail(time.Now().UnixNano())
 			domain := fmt.Sprintf("1secmail.%s", tld)
-			email := Email{Login: userName, Domain: domain}
-			_, err := fmt.Fprintln(f.Out, email.Email())
+			email := Email{Login: userName, Domain: domain}.Email()
+			err := os.Setenv("TEMP_EMAIL_1SEC", email)
+			if err != nil {
+				panic(err)
+			}
+			_, err = fmt.Fprintln(f.Out, email)
 			if err != nil {
 				panic(err)
 			}
