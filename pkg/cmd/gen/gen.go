@@ -19,10 +19,7 @@ func NewCmdGen(f *cmdutil.Factory) *cobra.Command {
 		Short: "Generate new email",
 		Long:  "Generate new email or reset old email and save it to ENV",
 		Run: func(c *cobra.Command, args []string) {
-			userName := util.RandomString(nameLen, time.Now().UnixNano())
-			tld := util.RandomTail(time.Now().UnixNano())
-			domain := fmt.Sprintf("1secmail.%s", tld)
-			email := Email{Login: userName, Domain: domain}.Email()
+			email := GenerateEmail().Email()
 			err := os.Setenv("TEMP_EMAIL_1SEC", email)
 			if err != nil {
 				panic(err)
@@ -44,4 +41,11 @@ type Email struct {
 
 func (e Email) Email() string {
 	return fmt.Sprintf("%s@%s", e.Login, e.Domain)
+}
+
+func GenerateEmail() Email {
+	userName := util.RandomString(nameLen, time.Now().UnixNano())
+	tld := util.RandomTail(time.Now().UnixNano())
+	domain := fmt.Sprintf("1secmail.%s", tld)
+	return Email{Login: userName, Domain: domain}
 }
