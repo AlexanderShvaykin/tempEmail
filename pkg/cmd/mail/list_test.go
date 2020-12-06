@@ -11,7 +11,7 @@ import (
 	"testing"
 )
 
-func runCommand(response string) (*test.CmdOut, error) {
+func runCommand(response string, args string) (*test.CmdOut, error) {
 	stdout := &bytes.Buffer{}
 	stderr := &bytes.Buffer{}
 	factory := &cmdutil.Factory{
@@ -22,6 +22,7 @@ func runCommand(response string) (*test.CmdOut, error) {
 
 	cmd.SetOut(ioutil.Discard)
 	cmd.SetErr(ioutil.Discard)
+	cmd.SetArgs(strings.Split(args, " "))
 
 	_, err := cmd.ExecuteC()
 	return &test.CmdOut{
@@ -41,7 +42,7 @@ func TestGenCmd(t *testing.T) {
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			output, err := runCommand(tt.response)
+			output, err := runCommand(tt.response, "")
 			if err != nil {
 				t.Fatalf("error running command `list`: %v", err)
 			}
@@ -53,8 +54,22 @@ func TestGenCmd(t *testing.T) {
 				t.Fatalf("output did not match regexp /%s/\n> output\n%q\n", r, lines[0])
 			}
 			if lines[1] != tt.want {
-				t.Fatalf("cmd output wrong, returs %v, want: %v", output.String(), tt.want)
+				t.Fatalf("cmd output wrong, returs %v, want: %v", lines[1], tt.want)
 			}
 		})
 	}
+	//	whit mail address
+	t.Run("Check mails for user email", func(t *testing.T) {
+		email := "foo@baz.ru"
+		output, err := runCommand(`[]`, email)
+		if err != nil {
+			t.Fatalf("error running command `list`: %v", err)
+		}
+
+		lines := strings.Split(output.String(), "\n")
+		want := "You email: " + email
+		if lines[0] != "You email: "+email {
+			t.Fatalf("cmd output wrong, returs %v, want: %v", lines[0], want)
+		}
+	})
 }
