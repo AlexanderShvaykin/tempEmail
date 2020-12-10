@@ -34,7 +34,14 @@ func NewCmdList(f *cmdutil.Factory) *cobra.Command {
 				cmdutil.Fprint(f.Out, "Mailbox is empty!")
 			} else {
 				for _, mail := range list {
-					cmdutil.Fprintf(f.Out, "Mail ID: %s\n", strconv.FormatInt(mail.ID, 10))
+					cmdutil.Fprintf(
+						f.Out,
+						"Mail ID: %s. From: %s. Subject: %s. Date: %s\n",
+						strconv.FormatInt(mail.ID, 10),
+						mail.From,
+						mail.Subject,
+						mail.Date,
+					)
 				}
 			}
 		},

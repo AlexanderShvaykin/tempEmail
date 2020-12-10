@@ -32,12 +32,21 @@ func runCommand(response string, args string) (*test.CmdOut, error) {
 }
 
 func TestGenCmd(t *testing.T) {
+	mailsResponse := `
+[{
+	"id": 123,
+	"from": "someone@example.com",
+	"subject": "Some subject",
+	"date": "2018-06-08 14:33:55"
+}]
+`
+
 	tests := []struct {
 		name     string
 		response string
 		want     string
 	}{
-		{"Prints mail ids", `[{"id": 123}]`, "Mail ID: 123"},
+		{"Prints mail ids", mailsResponse, "Mail ID: 123. From: someone@example.com. Subject: Some subject. Date: 2018-06-08 14:33:55"},
 		{"Print message about empty box", `[]`, "Mailbox is empty!"},
 	}
 	for _, tt := range tests {
