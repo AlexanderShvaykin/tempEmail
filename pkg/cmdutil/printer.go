@@ -12,8 +12,8 @@ func Fprintf(w io.Writer, format string, a ...interface{}) {
 	}
 }
 
-func Fprint(w io.Writer, a ...interface{}) {
-	_, err := fmt.Fprint(w, a...)
+func Fprintln(w io.Writer, a ...interface{}) {
+	_, err := fmt.Fprintln(w, a...)
 	if err != nil {
 		panic(err)
 	}

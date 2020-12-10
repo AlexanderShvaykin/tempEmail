@@ -31,7 +31,7 @@ func NewCmdList(f *cmdutil.Factory) *cobra.Command {
 			cmdutil.Fprintf(f.Out, "You email: %s\n", email.Email())
 			list := secmail.GetMails(email.Login, email.Domain, f.HttpClient)
 			if len(list) == 0 {
-				cmdutil.Fprint(f.Out, "Mailbox is empty!")
+				cmdutil.Fprintln(f.Out, "Mailbox is empty!")
 			} else {
 				for _, mail := range list {
 					cmdutil.Fprintf(
