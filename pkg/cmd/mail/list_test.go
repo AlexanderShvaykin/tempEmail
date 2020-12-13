@@ -31,7 +31,7 @@ func runCommand(response string, args []string) (*test.CmdOut, error) {
 	}, err
 }
 
-func TestGenCmd(t *testing.T) {
+func TestListCmd(t *testing.T) {
 	mailsResponse := `
 [{
 	"id": 123,
@@ -45,9 +45,10 @@ func TestGenCmd(t *testing.T) {
 		name     string
 		response string
 		want     string
+		args     []string
 	}{
-		{"Prints mail ids", mailsResponse, "Mail ID: 123. From: someone@example.com. Subject: Some subject. Date: 2018-06-08 14:33:55"},
-		{"Print message about empty box", `[]`, "Mailbox is empty!"},
+		{"Prints mail ids", mailsResponse, "Mail ID: 123. From: someone@example.com. Subject: Some subject. Date: 2018-06-08 14:33:55", []string{}},
+		{"Print message about empty box", `[]`, "Mailbox is empty!", []string{}},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
@@ -67,7 +68,7 @@ func TestGenCmd(t *testing.T) {
 			}
 		})
 	}
-	//	whit mail address
+	//	with mail address
 	t.Run("Check mails for user email", func(t *testing.T) {
 		email := "foo@baz.ru"
 		output, err := runCommand(`[]`, []string{email})
@@ -81,4 +82,37 @@ func TestGenCmd(t *testing.T) {
 			t.Fatalf("cmd output wrong, returs %v, want: %v", lines[0], want)
 		}
 	})
+}
+
+func TestListCmdWithID(t *testing.T) {
+	mailResponse, err := test.Fixture("mail.json")
+	if err != nil {
+		t.Fatal("read file Error!")
+	}
+	tests := []struct {
+		name     string
+		response string
+		want     string
+		args     []string
+	}{
+		{
+			"Prints mail ids",
+			mailResponse,
+			"From: batman@superhero.org. Date: 2018-06-08 14:33:55\nSubject: Super Man",
+			[]string{"foo@baz.org", "-i 123"},
+		},
+	}
+
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			output, err := runCommand(tt.response, tt.args)
+			if err != nil {
+				t.Fatalf("error running command `list`: %v", err)
+			}
+			expected := output.String()
+			if expected != tt.want {
+				t.Errorf("It doesn't return mail info, returned: %v, want: %v", expected, tt.want)
+			}
+		})
+	}
 }

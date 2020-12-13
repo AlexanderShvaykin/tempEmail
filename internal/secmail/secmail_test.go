@@ -1,9 +1,9 @@
 package secmail
 
 import (
-	"io/ioutil"
 	"reflect"
 	"tempEmail/pkg/httpstub"
+	"tempEmail/pkg/test"
 	"testing"
 )
 
@@ -37,7 +37,7 @@ func TestGetMails(t *testing.T) {
 }
 
 func TestGetMail(t *testing.T) {
-	mailResponse, err := ioutil.ReadFile("./fixtures/mail.json")
+	mailResponse, err := test.Fixture("mail.json")
 	if err != nil {
 		t.Fatal("read file Error!")
 	}
@@ -58,7 +58,7 @@ func TestGetMail(t *testing.T) {
 			want: Mail{
 				ID: int64(639), From: "batman@superhero.org", Subject: "Super Man", Date: "2018-06-08 14:33:55", Body: "Some message body\n\n",
 			},
-			client: httpstub.HttpClient{Response: string(mailResponse)},
+			client: httpstub.HttpClient{Response: mailResponse},
 		},
 	}
 	for _, tt := range tests {
