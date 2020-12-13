@@ -1,6 +1,7 @@
 package secmail
 
 import (
+	"io/ioutil"
 	"reflect"
 	"tempEmail/pkg/httpstub"
 	"testing"
@@ -28,8 +29,54 @@ func TestGetMails(t *testing.T) {
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			if got := GetMails(tt.args.login, tt.args.domain, tt.client); !reflect.DeepEqual(got, tt.want) {
+			if got := GetMails(tt.args.login, tt.args.domain, &tt.client); !reflect.DeepEqual(got, tt.want) {
 				t.Errorf("GetMails() = %v, want %v", got, tt.want)
+			}
+		})
+	}
+}
+
+func TestGetMail(t *testing.T) {
+	mailResponse, err := ioutil.ReadFile("./fixtures/mail.json")
+	if err != nil {
+		t.Fatal("read file Error!")
+	}
+	type args struct {
+		login  string
+		domain string
+		id     string
+	}
+	tests := []struct {
+		name   string
+		args   args
+		want   Mail
+		client httpstub.HttpClient
+	}{
+		{
+			name: "Returns email list",
+			args: args{login: "test_login", domain: "secmail.org", id: "123"},
+			want: Mail{
+				ID: int64(639), From: "batman@superhero.org", Subject: "Super Man", Date: "2018-06-08 14:33:55", Body: "Some message body\n\n",
+			},
+			client: httpstub.HttpClient{Response: string(mailResponse)},
+		},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			if got := GetMail(tt.args.login, tt.args.domain, tt.args.id, &tt.client); !reflect.DeepEqual(got, tt.want) {
+				t.Errorf("GetMails() = %v, want %v", got, tt.want)
+			}
+			if baseUrl != tt.client.Url {
+				t.Errorf("Dont send request to %v, sends to %v", baseUrl, tt.client.Url)
+			}
+			params := map[string]string{
+				"action": "readMessage",
+				"login":  tt.args.login,
+				"domain": tt.args.domain,
+				"id":     tt.args.id,
+			}
+			if !reflect.DeepEqual(params, tt.client.Args) {
+				t.Errorf("Dont send request with args %v, sends with %v", params, tt.client.Args)
 			}
 		})
 	}

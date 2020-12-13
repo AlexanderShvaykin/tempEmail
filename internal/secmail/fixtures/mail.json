@@ -1,0 +1,14 @@
+{
+  "id": 639,
+  "from": "batman@superhero.org",
+  "subject": "Super Man",
+  "date": "2018-06-08 14:33:55",
+  "attachments": [{
+    "filename": "iometer.pdf",
+    "contentType": "application\/pdf",
+    "size": 47412
+  }],
+  "body": "Some message body\n\n",
+  "textBody": "Some message body\n\n",
+  "htmlBody": ""
+}
