@@ -11,7 +11,7 @@ import (
 	"testing"
 )
 
-func runCommand(response string, args string) (*test.CmdOut, error) {
+func runCommand(response string, args []string) (*test.CmdOut, error) {
 	stdout := &bytes.Buffer{}
 	stderr := &bytes.Buffer{}
 	factory := &cmdutil.Factory{
@@ -22,7 +22,7 @@ func runCommand(response string, args string) (*test.CmdOut, error) {
 
 	cmd.SetOut(ioutil.Discard)
 	cmd.SetErr(ioutil.Discard)
-	cmd.SetArgs(strings.Split(args, " "))
+	cmd.SetArgs(args)
 
 	_, err := cmd.ExecuteC()
 	return &test.CmdOut{
@@ -51,7 +51,7 @@ func TestGenCmd(t *testing.T) {
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			output, err := runCommand(tt.response, "")
+			output, err := runCommand(tt.response, []string{""})
 			if err != nil {
 				t.Fatalf("error running command `list`: %v", err)
 			}
@@ -70,7 +70,7 @@ func TestGenCmd(t *testing.T) {
 	//	whit mail address
 	t.Run("Check mails for user email", func(t *testing.T) {
 		email := "foo@baz.ru"
-		output, err := runCommand(`[]`, email)
+		output, err := runCommand(`[]`, []string{email})
 		if err != nil {
 			t.Fatalf("error running command `list`: %v", err)
 		}
