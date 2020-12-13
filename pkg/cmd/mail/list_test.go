@@ -15,7 +15,7 @@ func runCommand(response string, args string) (*test.CmdOut, error) {
 	stdout := &bytes.Buffer{}
 	stderr := &bytes.Buffer{}
 	factory := &cmdutil.Factory{
-		Out: stdout, ErrOut: stderr, HttpClient: httpstub.HttpClient{Response: response},
+		Out: stdout, ErrOut: stderr, HttpClient: &httpstub.HttpClient{Response: response},
 	}
 
 	cmd := NewCmdList(factory)
