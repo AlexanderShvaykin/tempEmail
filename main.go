@@ -2,8 +2,8 @@ package main
 
 import (
 	"fmt"
+	"github.com/AlexanderShvaykin/tempEmail/pkg/cmd/root"
 	"os"
-	"tempEmail/pkg/cmd/root"
 )
 
 func main() {

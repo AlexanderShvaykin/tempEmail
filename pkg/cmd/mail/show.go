@@ -1,11 +1,11 @@
 package mail
 
 import (
+	"github.com/AlexanderShvaykin/tempEmail/internal/secmail"
+	"github.com/AlexanderShvaykin/tempEmail/pkg/cmd/gen"
+	"github.com/AlexanderShvaykin/tempEmail/pkg/cmdutil"
 	"github.com/jaytaylor/html2text"
 	"github.com/spf13/cobra"
-	"tempEmail/internal/secmail"
-	"tempEmail/pkg/cmd/gen"
-	"tempEmail/pkg/cmdutil"
 )
 
 func NewCmdShow(f *cmdutil.Factory) *cobra.Command {

@@ -1,8 +1,8 @@
 package cmdutil
 
 import (
+	"github.com/AlexanderShvaykin/tempEmail/pkg/http"
 	"io"
-	"tempEmail/pkg/http"
 )
 
 type Factory struct {

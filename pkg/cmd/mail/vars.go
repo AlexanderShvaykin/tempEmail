@@ -1,6 +1,6 @@
 package mail
 
-import "tempEmail/pkg/cmd/gen"
+import "github.com/AlexanderShvaykin/tempEmail/pkg/cmd/gen"
 
 var (
 	currentEmail string

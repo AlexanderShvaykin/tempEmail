@@ -1,12 +1,12 @@
 package root
 
 import (
+	"github.com/AlexanderShvaykin/tempEmail/pkg/cmd/gen"
+	"github.com/AlexanderShvaykin/tempEmail/pkg/cmd/mail"
+	"github.com/AlexanderShvaykin/tempEmail/pkg/cmdutil"
+	"github.com/AlexanderShvaykin/tempEmail/pkg/http"
 	"github.com/spf13/cobra"
 	"os"
-	"tempEmail/pkg/cmd/gen"
-	"tempEmail/pkg/cmd/mail"
-	"tempEmail/pkg/cmdutil"
-	"tempEmail/pkg/http"
 )
 
 func NewCmdRoot() *cobra.Command {

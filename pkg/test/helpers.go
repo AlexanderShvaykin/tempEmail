@@ -2,10 +2,10 @@ package test
 
 import (
 	"bytes"
+	"github.com/AlexanderShvaykin/tempEmail/pkg/cmdutil"
+	"github.com/AlexanderShvaykin/tempEmail/pkg/httpstub"
 	"github.com/spf13/cobra"
 	"io/ioutil"
-	"tempEmail/pkg/cmdutil"
-	"tempEmail/pkg/httpstub"
 )
 
 type CmdOut struct {

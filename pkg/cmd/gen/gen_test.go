@@ -2,12 +2,12 @@ package gen
 
 import (
 	"bytes"
+	"github.com/AlexanderShvaykin/tempEmail/pkg/cmdutil"
+	"github.com/AlexanderShvaykin/tempEmail/pkg/test"
 	"io/ioutil"
 	"reflect"
 	"regexp"
 	"strings"
-	"tempEmail/pkg/cmdutil"
-	"tempEmail/pkg/test"
 	"testing"
 )
 

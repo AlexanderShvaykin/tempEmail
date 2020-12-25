@@ -1,9 +1,9 @@
 package mail
 
 import (
+	"github.com/AlexanderShvaykin/tempEmail/pkg/test"
 	"regexp"
 	"strings"
-	"tempEmail/pkg/test"
 	"testing"
 )
 
