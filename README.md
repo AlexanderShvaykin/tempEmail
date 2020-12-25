@@ -5,7 +5,7 @@
 
 ### Install
 
-`TODO...`
+`go get github.com/AlexanderShvaykin/temp_email`
 
 ### Usage
 ```shell
