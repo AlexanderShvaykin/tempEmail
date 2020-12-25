@@ -1,7 +1,6 @@
 package mail
 
 import (
-	"fmt"
 	"github.com/jaytaylor/html2text"
 	"github.com/spf13/cobra"
 	"tempEmail/internal/secmail"
@@ -26,7 +25,6 @@ func NewCmdShow(f *cmdutil.Factory) *cobra.Command {
 			if err != nil {
 				panic(err)
 			}
-			fmt.Println(text)
 			cmdutil.Fprintf(
 				f.Out,
 				"From: %s. Date: %s\nSubject: %s\n%s\n",
