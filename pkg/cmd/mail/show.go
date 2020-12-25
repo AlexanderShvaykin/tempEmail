@@ -1,6 +1,8 @@
 package mail
 
 import (
+	"fmt"
+	"github.com/jaytaylor/html2text"
 	"github.com/spf13/cobra"
 	"tempEmail/internal/secmail"
 	"tempEmail/pkg/cmd/gen"
@@ -20,14 +22,18 @@ func NewCmdShow(f *cmdutil.Factory) *cobra.Command {
 			}
 			email = gen.New(args[0])
 			mail := secmail.GetMail(email.Login, email.Domain, id, f.HttpClient)
-			//"From: batman@superhero.org. Date: 2018-06-08 14:33:55\nSubject: Super Man"
+			text, err := html2text.FromString(mail.Body, html2text.Options{PrettyTables: false})
+			if err != nil {
+				panic(err)
+			}
+			fmt.Println(text)
 			cmdutil.Fprintf(
 				f.Out,
-				"From: %s. Date: %s\nSubject: %s\n%s",
+				"From: %s. Date: %s\nSubject: %s\n%s\n",
 				mail.From,
 				mail.Date,
 				mail.Subject,
-				mail.Body,
+				text,
 			)
 		},
 	}
