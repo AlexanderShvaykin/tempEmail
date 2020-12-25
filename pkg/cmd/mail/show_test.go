@@ -19,7 +19,7 @@ func TestShowCmd(t *testing.T) {
 		{
 			"Prints mail ids",
 			mailResponse,
-			"From: batman@superhero.org. Date: 2018-06-08 14:33:55\nSubject: Super Man\n",
+			"From: batman@superhero.org. Date: 2018-06-08 14:33:55\nSubject: Super Man\nSome message body\n\n",
 			[]string{"foo@baz.org", "-i 123"},
 		},
 	}

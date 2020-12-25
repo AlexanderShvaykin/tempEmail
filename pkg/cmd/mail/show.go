@@ -23,10 +23,11 @@ func NewCmdShow(f *cmdutil.Factory) *cobra.Command {
 			//"From: batman@superhero.org. Date: 2018-06-08 14:33:55\nSubject: Super Man"
 			cmdutil.Fprintf(
 				f.Out,
-				"From: %s. Date: %s\nSubject: %s\n",
+				"From: %s. Date: %s\nSubject: %s\n%s",
 				mail.From,
 				mail.Date,
 				mail.Subject,
+				mail.Body,
 			)
 		},
 	}

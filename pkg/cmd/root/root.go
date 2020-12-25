@@ -23,8 +23,9 @@ func NewCmdRoot() *cobra.Command {
 		Example: "tmpemail list",
 	}
 
-	cmd.AddCommand(mail.NewCmdList(factory))
 	cmd.AddCommand(gen.NewCmdGen(factory))
+	cmd.AddCommand(mail.NewCmdList(factory))
+	cmd.AddCommand(mail.NewCmdShow(factory))
 
 	return cmd
 }
