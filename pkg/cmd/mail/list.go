@@ -8,13 +8,7 @@ import (
 	"tempEmail/pkg/cmdutil"
 )
 
-var (
-	currentEmail string
-	email        gen.Email
-)
-
 func NewCmdList(f *cmdutil.Factory) *cobra.Command {
-	var id string
 	cmd := &cobra.Command{
 		Use:     "list",
 		Short:   "Print list of mails",
@@ -47,6 +41,5 @@ func NewCmdList(f *cmdutil.Factory) *cobra.Command {
 			}
 		},
 	}
-	cmd.Flags().StringVarP(&id, "id", "i", "", "Show an email by ID")
 	return cmd
 }

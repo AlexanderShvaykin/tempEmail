@@ -1,35 +1,11 @@
 package mail
 
 import (
-	"bytes"
-	"io/ioutil"
 	"regexp"
 	"strings"
-	"tempEmail/pkg/cmdutil"
-	"tempEmail/pkg/httpstub"
 	"tempEmail/pkg/test"
 	"testing"
 )
-
-func runCommand(response string, args []string) (*test.CmdOut, error) {
-	stdout := &bytes.Buffer{}
-	stderr := &bytes.Buffer{}
-	factory := &cmdutil.Factory{
-		Out: stdout, ErrOut: stderr, HttpClient: &httpstub.HttpClient{Response: response},
-	}
-
-	cmd := NewCmdList(factory)
-
-	cmd.SetOut(ioutil.Discard)
-	cmd.SetErr(ioutil.Discard)
-	cmd.SetArgs(args)
-
-	_, err := cmd.ExecuteC()
-	return &test.CmdOut{
-		OutBuf: stdout,
-		ErrBuf: stderr,
-	}, err
-}
 
 func TestListCmd(t *testing.T) {
 	mailsResponse := `
@@ -52,7 +28,7 @@ func TestListCmd(t *testing.T) {
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			output, err := runCommand(tt.response, []string{""})
+			output, err := test.RunCommand(tt.response, []string{""}, NewCmdList)
 			if err != nil {
 				t.Fatalf("error running command `list`: %v", err)
 			}
@@ -71,7 +47,7 @@ func TestListCmd(t *testing.T) {
 	//	with mail address
 	t.Run("Check mails for user email", func(t *testing.T) {
 		email := "foo@baz.ru"
-		output, err := runCommand(`[]`, []string{email})
+		output, err := test.RunCommand(`[]`, []string{email}, NewCmdList)
 		if err != nil {
 			t.Fatalf("error running command `list`: %v", err)
 		}
@@ -82,37 +58,4 @@ func TestListCmd(t *testing.T) {
 			t.Fatalf("cmd output wrong, returs %v, want: %v", lines[0], want)
 		}
 	})
-}
-
-func TestListCmdWithID(t *testing.T) {
-	mailResponse, err := test.Fixture("mail.json")
-	if err != nil {
-		t.Fatal("read file Error!")
-	}
-	tests := []struct {
-		name     string
-		response string
-		want     string
-		args     []string
-	}{
-		{
-			"Prints mail ids",
-			mailResponse,
-			"From: batman@superhero.org. Date: 2018-06-08 14:33:55\nSubject: Super Man",
-			[]string{"foo@baz.org", "-i 123"},
-		},
-	}
-
-	for _, tt := range tests {
-		t.Run(tt.name, func(t *testing.T) {
-			output, err := runCommand(tt.response, tt.args)
-			if err != nil {
-				t.Fatalf("error running command `list`: %v", err)
-			}
-			expected := output.String()
-			if expected != tt.want {
-				t.Errorf("It doesn't return mail info, returned: %v, want: %v", expected, tt.want)
-			}
-		})
-	}
 }
