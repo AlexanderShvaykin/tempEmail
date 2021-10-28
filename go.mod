@@ -1,4 +1,4 @@
-module github.com/AlexanderShvaykin/tempEmail
+module github.com/AlexanderShvaykin/tempemail
 
 go 1.15
 
