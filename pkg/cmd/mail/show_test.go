@@ -1,7 +1,7 @@
 package mail
 
 import (
-	"github.com/AlexanderShvaykin/tempEmail/pkg/test"
+	"github.com/AlexanderShvaykin/tempemail/pkg/test"
 	"testing"
 )
 

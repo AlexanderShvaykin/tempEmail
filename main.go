@@ -2,7 +2,7 @@ package main
 
 import (
 	"fmt"
-	"github.com/AlexanderShvaykin/tempEmail/pkg/cmd/root"
+	"github.com/AlexanderShvaykin/tempemail/pkg/cmd/root"
 	"os"
 )
 

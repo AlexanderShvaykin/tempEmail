@@ -2,8 +2,8 @@ package test
 
 import (
 	"bytes"
-	"github.com/AlexanderShvaykin/tempEmail/pkg/cmdutil"
-	"github.com/AlexanderShvaykin/tempEmail/pkg/httpstub"
+	"github.com/AlexanderShvaykin/tempemail/pkg/cmdutil"
+	"github.com/AlexanderShvaykin/tempemail/pkg/httpstub"
 	"github.com/spf13/cobra"
 	"io/ioutil"
 )

@@ -1,7 +1,7 @@
 package cmdutil
 
 import (
-	"github.com/AlexanderShvaykin/tempEmail/pkg/http"
+	"github.com/AlexanderShvaykin/tempemail/pkg/http"
 	"io"
 )
 

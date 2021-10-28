@@ -3,7 +3,7 @@ package secmail
 import (
 	"encoding/json"
 	"fmt"
-	"github.com/AlexanderShvaykin/tempEmail/pkg/http"
+	"github.com/AlexanderShvaykin/tempemail/pkg/http"
 )
 
 const baseUrl = "https://1secmail.com/api/v1/"

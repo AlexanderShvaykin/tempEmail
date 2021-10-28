@@ -2,8 +2,8 @@ package gen
 
 import (
 	"bytes"
-	"github.com/AlexanderShvaykin/tempEmail/pkg/cmdutil"
-	"github.com/AlexanderShvaykin/tempEmail/pkg/test"
+	"github.com/AlexanderShvaykin/tempemail/pkg/cmdutil"
+	"github.com/AlexanderShvaykin/tempemail/pkg/test"
 	"io/ioutil"
 	"reflect"
 	"regexp"

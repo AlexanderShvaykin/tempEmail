@@ -1,8 +1,8 @@
 package secmail
 
 import (
-	"github.com/AlexanderShvaykin/tempEmail/pkg/httpstub"
-	"github.com/AlexanderShvaykin/tempEmail/pkg/test"
+	"github.com/AlexanderShvaykin/tempemail/pkg/httpstub"
+	"github.com/AlexanderShvaykin/tempemail/pkg/test"
 	"reflect"
 	"testing"
 )

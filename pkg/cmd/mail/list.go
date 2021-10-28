@@ -1,9 +1,9 @@
 package mail
 
 import (
-	"github.com/AlexanderShvaykin/tempEmail/internal/secmail"
-	"github.com/AlexanderShvaykin/tempEmail/pkg/cmd/gen"
-	"github.com/AlexanderShvaykin/tempEmail/pkg/cmdutil"
+	"github.com/AlexanderShvaykin/tempemail/internal/secmail"
+	"github.com/AlexanderShvaykin/tempemail/pkg/cmd/gen"
+	"github.com/AlexanderShvaykin/tempemail/pkg/cmdutil"
 	"github.com/spf13/cobra"
 	"strconv"
 )
