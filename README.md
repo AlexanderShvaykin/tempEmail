@@ -5,7 +5,7 @@
 
 ### Install
 
-`go get github.com/AlexanderShvaykin/temp_email`
+`go get github.com/AlexanderShvaykin/tempemail`
 
 ### Usage
 ```shell
