@@ -2,8 +2,8 @@ package gen
 
 import (
 	"fmt"
-	"github.com/AlexanderShvaykin/tempEmail/pkg/cmdutil"
-	"github.com/AlexanderShvaykin/tempEmail/pkg/util"
+	"github.com/AlexanderShvaykin/tempemail/pkg/cmdutil"
+	"github.com/AlexanderShvaykin/tempemail/pkg/util"
 	"github.com/spf13/cobra"
 	"strings"
 	"time"
